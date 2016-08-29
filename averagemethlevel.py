@@ -1,9 +1,8 @@
-"""
-Input: bedfile, methylome in wig format
-Output: bedfile containing average meth level for each region
+'''This program calculates the average methylation level within each DNA region
 
-command: python function.py bedfile wigfile outfile
-"""
+Input: bedfile, wig files for methylation
+Output: regions with average methylation level in each place histogram in png format. 
+'''
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -70,18 +69,13 @@ def main():
     methdata=readmethylome(methfile)
     print "calculating average methylation levels per region..."
     avgscores=[]
-    #out1=open(outfile+".hyper.bed",'w')
-    #out2=open(outfile+".hypo.bed",'w')
-
     for region in DHS:
-    	score=calcaveragemeth(region,methdata)
-        avgscores+=[score]
-        
-    #out1.close()
-    #out2.close()
+        avgscores+=[calcaveragemeth(region,methdata)]
+        if len(avgscores)%10000==0:
+            print len(avgscores)
     print "plotting histogram..."
     plt.hist(avgscores,bins=100);
-    plt.plot([1,2,3])
+    #plt.plot([1,2,3])
     plt.savefig(outfile)
     return
 
