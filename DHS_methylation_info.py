@@ -24,7 +24,7 @@ def calcaveragemeth(region,methlome):
     start=region[1]
     end=region[2]
     mlevels=[]
-    for i in range(start,end):
+    for i in range(start,end,2): #step size is 2 because both C and G are marked as methylated
         try:
             methlevel=methlome[chrom][i]
             #print methlevel,i
